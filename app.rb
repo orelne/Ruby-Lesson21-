@@ -30,13 +30,19 @@ post '/visit' do
 				 :phone => 'Введите номер телефона',
 				 :date_time => 'Введите дату и время' }
 
-		hh.each do |key, value|
-			if params[key] == ''
-				@error = hh[key]
-				return erb :visit
+@error = hh.select {|key,_| params[key] == ""}.values.join(", ")
+
+if @error != ''
+	return erb :visit
+end
+
+	#	hh.each do |key, value|
+	#		if params[key] == ''
+	#			@error = hh[key]
+	#			return erb :visit
 					 	
-			 end
-		end		 
+	#		 end
+	#	end		 
 
 			
 input = File.open("./public/users.txt", 'a')
