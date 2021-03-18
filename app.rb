@@ -3,7 +3,7 @@ require 'sinatra'
 require 'sinatra/reloader'
 
 get '/' do
-	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
+	erb :index			
 end
 
 get '/about' do
@@ -19,12 +19,18 @@ get '/contacts' do
 end
 
 post '/visit' do
-        @user_name = params[:user_name] 
-	@phone = params[:phone]
-	@date_time = params[:date_time]
+      @user_name = params[:user_name] 
+		@phone = params[:phone]
+		@date_time = params[:date_time]
+		@barber = params[:barber]
+		@color = params[:color]
 
 input = File.open("./public/users.txt", 'a')
-input.write "User_name: #{@user_name}, Phone: #{@phone}, Date & time: #{@date_time}\n"
+input.write "User_name: #{@user_name}, Phone: #{@phone}, Date & time: #{@date_time}, Barber: #{@barber}, Color: #{@color}\n"
+input.close
+
+input = File.open("./public/contacts.txt", 'a')
+input.write "User_name: #{@user_name}, Phone: #{@phone}\n"
 input.close
 
 	@title = 'Thank you!'
